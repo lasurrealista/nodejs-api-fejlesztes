@@ -41,7 +41,7 @@ controller.put('/:id', (req, res) => {
 
 // Delete a person.
 controller.delete('/:id', (req, res) => {
-    const index = data.findIndex(p => p.id === Number(id));
+    const index = data.findIndex(p => p.id === Number(req.params.id));
     data.splice(index, 1);
     res.json({});
 });
