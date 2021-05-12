@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-api-fejlesztes",
+  "version": "1.0.0",
+  "description": "* Node.js - Download and Install [Node.js](http://www.nodejs.org/download/).\r * MongoDB - Download and Install [MongoDB](http://www.mongodb.org/downloads) - Make sure it's running on the default port (27017).",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Training360/nodejs-api-fejlesztes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Training360/nodejs-api-fejlesztes/issues"
+  },
+  "homepage": "https://github.com/Training360/nodejs-api-fejlesztes#readme"
+}
