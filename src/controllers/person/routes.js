@@ -7,6 +7,12 @@ controller.get('/', (req, res) => {
     res.json(data);
 });
 
+// Get one person.
+controller.get('/:id', (req, res) => {
+    const person = data.find(p => p.id === Number(req.params.id));
+    res.json(person);
+});
+
 // Create a new person.
 controller.post('/', (req, res) => {
     const newPerson = req.body;
@@ -31,6 +37,13 @@ controller.put('/:id', (req, res) => {
     };
 
     res.json(data[index]);
+});
+
+// Delete a person.
+controller.delete('/:id', (req, res) => {
+    const index = data.findIndex(p => p.id === Number(id));
+    data.splice(index, 1);
+    res.json({});
 });
 
 module.exports = controller;
