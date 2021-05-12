@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const logger = require('./config/logger');
+
 const port = 3000;
+
+app.use(morgan('combined', {stream: logger.stream}));
 
 app.use(bodyParser.json());
 app.use('/person', require('./controllers/person/routes'));
