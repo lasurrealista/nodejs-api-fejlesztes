@@ -8,6 +8,8 @@ const port = 3000;
 
 app.use(morgan('combined', {stream: logger.stream}));
 
+app.use(express.static('public'));
+
 app.use(bodyParser.json());
 app.use('/person', require('./controllers/person/routes'));
 
