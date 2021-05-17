@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const logger = require('./config/logger');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const port = 3000;
 
