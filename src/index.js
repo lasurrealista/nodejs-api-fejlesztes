@@ -32,7 +32,7 @@ app.use(morgan('combined', {stream: logger.stream}));
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
-app.use('/person', require('./controllers/person/routes'));
+app.use('/person', require('./controllers/person/person.routes'));
 
 app.use( (err, req, res, next) => {
     res.status(err.statusCode);
