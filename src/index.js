@@ -1,3 +1,5 @@
+require('dotenv').config();
+const config = require('config');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,11 +8,16 @@ const logger = require('./config/logger');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Database connection.
+if (!config.has('database')) {
+    logger.error('Ne database config found.');
+    process.exit();
+}
+const { username, password, host } = config.get('database');
 mongoose
-    .connect('mongodb+srv://dbUser:a5wh61d5kj8Jtewl@cluster0.iz7ya.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+    .connect(`mongodb+srv://${username}:${password}@${host}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
