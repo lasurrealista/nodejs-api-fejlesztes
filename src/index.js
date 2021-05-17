@@ -8,6 +8,18 @@ mongoose.Promise = global.Promise;
 
 const port = 3000;
 
+// Database connection.
+mongoose
+    .connect('mongodb+srv://dbUser:a5wh61d5kj8Jtewl@cluster0.iz7ya.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then( () => logger.info('MongoDB connection has been established successfully.'))
+    .catch( err => {
+        logger.error(err);
+        process.exit();
+    });
+
 app.use(morgan('combined', {stream: logger.stream}));
 
 app.use(express.static('public'));
