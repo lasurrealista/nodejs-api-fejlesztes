@@ -39,7 +39,7 @@ exports.findOne = (req, res, next) => {
             if (!person) {
                 return next(new createError.NotFound("Person is not found"));
             }
-            res.json(person);
+            return res.json(person);
         });
 };
 
