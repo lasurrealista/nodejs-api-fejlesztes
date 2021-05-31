@@ -2,6 +2,6 @@
     "database": {
         "username": "dbUser",
         "password": "a5wh61d5kj8Jtewl",
-        "host": "cluster0.iz7ya.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        "host": "mongo:27017/myFirstDatabase?retryWrites=true&w=majority"
     }
 }

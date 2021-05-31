@@ -20,3 +20,67 @@ fetch('http://localhost:3000/person', {
 }).then( r => r.json() )
 .then( d => console.log(d) );
 ```
+
+## Docker
+### Dockerfile
+```dockerfile
+FROM node:latest
+WORKDIR '/app'
+COPY package.json ./
+RUN npm install
+COPY . .
+CMD [ "npm", "run", "start" ]
+```
+
+### default.json
+```json
+"host": "mongo:27017/myFirstDatabase?retryWrites=true&w=majority"
+```
+
+### .gitignore
+```
+data
+```
+
+### docker-compose.yml
+```dockerfile
+version: "3"
+services: 
+    app:
+        build: 
+            dockerfile: Dockerfile
+            context: .
+        volumes: 
+            - /app/node_modules
+            - .:/app
+        ports: 
+            - "3000:3000"
+        links: 
+            - mongo
+    mongo:
+        container_name: mongo
+        image: mongo:latest
+        volumes: 
+            - ./data/db:/data/db
+        ports: 
+            - "27017:27017"
+```
+
+### package.json
+```json
+"scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "docker:build": "docker build -t nodejs-api-fejlesztes:latest .",
+    "docker-compose:up": "docker-compose up"
+  },
+```
+
+### server.js
+```nodejs
+mongoose
+    .connect(`mongodb://${host}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+```
