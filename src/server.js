@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise;
 // Authenctication.
 const authenticateJwt = require('./auth/authenticate');
 const adminOnly = require('./auth/adminOnly');
+const authHandler = require('./auth/authHandler');
 
 const swaggerDocument = YAML.load('./docs/swager.yaml');
 
@@ -32,7 +33,10 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 // Router.
-app.post('/login', require('./auth/login'));
+app.post('/login', authHandler.login);
+app.post('/refresh', authHandler.refresh);
+app.post('/logout', authHandler.logout);
+
 app.use('/person', authenticateJwt, require('./controllers/person/person.routes'));
 app.use('/post', authenticateJwt, adminOnly, require('./controllers/post/post.routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
