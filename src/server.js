@@ -9,6 +9,10 @@ const YAML = require('yamljs');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
+// Authenctication.
+const authenticateJwt = require('./auth/authenticate');
+const adminOnly = require('./auth/adminOnly');
+
 const swaggerDocument = YAML.load('./docs/swager.yaml');
 
 const { username, password, host } = config.get('database');
@@ -24,12 +28,13 @@ mongoose
     });
 
 app.use(morgan('combined', {stream: logger.stream}));
-
 app.use(express.static('public'));
-
 app.use(bodyParser.json());
-app.use('/person', require('./controllers/person/person.routes'));
-app.use('/post', require('./controllers/post/post.routes'));
+
+// Router.
+app.post('/login', require('./auth/login'));
+app.use('/person', authenticateJwt, require('./controllers/person/person.routes'));
+app.use('/post', authenticateJwt, adminOnly, require('./controllers/post/post.routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use( (err, req, res, next) => {
