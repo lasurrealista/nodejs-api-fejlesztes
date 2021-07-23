@@ -58,6 +58,8 @@ paths:
   /person/{person_id}:
     get:
       description: Returns the person with the given ID
+      security:
+        - bearerAuth: []
       parameters:
         - name: person_id
           in: path
@@ -73,6 +75,35 @@ paths:
                 $ref: '#/components/schemas/Person'
         '404':
           description: Person with the give ID was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      description: Update a person
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '201':
+          description: Person has been updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Invalid request
           content:
             application/json:
               schema:
@@ -103,6 +134,23 @@ components:
           type: string
         email:
           type: string
+        posts: 
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+    Post:
+      type: object
+      required:
+        - title
+        - body
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        author:
+          type: object
+          $ref: '#/components/schemas/Person'
     Error:
       type: object
       required:
