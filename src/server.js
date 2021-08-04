@@ -42,7 +42,7 @@ app.use('/post', authenticateJwt, adminOnly, require('./controllers/post/post.ro
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use( (err, req, res, next) => {
-    res.status(err.statusCode);
+    res.status(err.statusCode || 500);
     res.json({
         hasError: true,
         message: err.message
