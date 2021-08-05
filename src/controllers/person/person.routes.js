@@ -21,6 +21,9 @@ router.get('/:id', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   return controller.update(req, res, next);
 });
+router.patch('/:id', (req, res, next) => {
+  return controller.update(req, res, next);
+});
 
 // delete
 router.delete('/:id', (req, res, next) => {
